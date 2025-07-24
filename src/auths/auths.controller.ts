@@ -21,6 +21,7 @@ export class AuthsController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @Public()
+  // debug có user nhưng bên post ko nhận đc khi đã export và import rồi
   handleLogin(@Request() req) {
     return this.authsService.login(req.user);
   }

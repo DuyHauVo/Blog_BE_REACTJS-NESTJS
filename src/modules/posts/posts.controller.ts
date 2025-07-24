@@ -19,7 +19,8 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Post()
-  create(@Request() req, @Body() createPostDto: CreatePostDto) {
+  // debug lại ko có user 
+  create(@Req() req, @Body() createPostDto: CreatePostDto) {
     return this.postsService.create(createPostDto);
   }
 

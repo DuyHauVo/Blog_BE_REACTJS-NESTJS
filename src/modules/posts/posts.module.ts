@@ -7,6 +7,7 @@ import { AuthsModule } from '@/auths/auths.module';
 
 @Module({
   imports: [
+    // đã import 
     AuthsModule,
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
   ],
