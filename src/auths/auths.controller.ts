@@ -3,11 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
   UseGuards,
   Request,
+  Req,
 } from '@nestjs/common';
 import { AuthsService } from './auths.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
@@ -22,7 +20,7 @@ export class AuthsController {
   @Post('login')
   @Public()
   // debug có user nhưng bên post ko nhận đc khi đã export và import rồi
-  handleLogin(@Request() req) {
+  handleLogin(@Req() req: any) {
     return this.authsService.login(req.user);
   }
 
@@ -33,7 +31,7 @@ export class AuthsController {
   }
 
   @Get('profiles')
-  getProfile(@Request() req) {
+  getProfile(@Req() req) {
     return req.user;
   }
 }
