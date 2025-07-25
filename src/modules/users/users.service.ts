@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -75,9 +79,35 @@ export class UsersService {
     return await this.UserModel.findOne({ email });
   }
 
-  async update(updateUserDto: UpdateUserDto) {
+  // async update(
+  //   updateUserDto: UpdateUserDto,
+  //   user: any, //user Đang đăng nhập
+  //   user_Id_Client: string, //id user chỉnh sửa
+  // ) {
+  //   const cleanId = user_Id_Client.trim();
+  //   const targetUser = await this.findOne(cleanId);
+
+  //   if (!targetUser) {
+  //     throw new NotFoundException('KO tồn tại user');
+  //   }
+
+  //   if (user.role !== 'ADMIN') {
+  //     throw new NotFoundException('Bạn ko có quyền chỉnh sửa nội dung này');
+  //   }
+  //   return await this.UserModel.updateOne(
+  //     { _id: user_Id_Client },
+  //     { ...updateUserDto },
+  //   );
+  // }
+  async update(updateUserDto: UpdateUserDto, userID: string) {
     return await this.UserModel.updateOne(
-      { _id: updateUserDto._id },
+      { _id: userID },
+      { ...updateUserDto },
+    );
+  }
+  async updateUserByAdmin(updateUserDto: UpdateUserDto, userID: string) {
+    return await this.UserModel.updateOne(
+      { _id: userID },
       { ...updateUserDto },
     );
   }

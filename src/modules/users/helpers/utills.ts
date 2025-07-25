@@ -19,3 +19,8 @@ export const comparePassHelper = async (
     console.log(error);
   }
 };
+
+export enum Role {
+  User = 'USERS',
+  Admin = 'ADMIN',
+}

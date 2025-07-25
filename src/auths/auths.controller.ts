@@ -11,6 +11,8 @@ import { AuthsService } from './auths.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { LocalAuthGuard } from './passport/local-auth.guard';
 import { Public } from './decorator/metadata';
+import { Roles } from './decorator/roles.decorator';
+import { Role } from '@/modules/users/helpers/utills';
 
 @Controller('auths')
 export class AuthsController {
@@ -20,7 +22,7 @@ export class AuthsController {
   @Post('login')
   @Public()
   // debug có user nhưng bên post ko nhận đc khi đã export và import rồi
-  handleLogin(@Req() req: any) {
+  handleLogin(@Req() req: any) {    
     return this.authsService.login(req.user);
   }
 
@@ -31,6 +33,7 @@ export class AuthsController {
   }
 
   @Get('profiles')
+  @Roles(Role.Admin)
   getProfile(@Req() req) {
     return req.user;
   }
